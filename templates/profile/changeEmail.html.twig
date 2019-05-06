@@ -1,0 +1,39 @@
+{% extends 'profile/profileLayout.html.twig' %}
+
+{% block title %}Cambiar email{% endblock %}
+
+{% block content %}
+
+    <h2 class="mt-5 mb-4">
+        <a class="nav-back" href="{{ path('app_profile') }}"><i class="fas fa-arrow-left"></i></a> Cambiar email
+    </h2>
+
+    {% for message in app.flashes('notice') %}
+        <div class="card bg-primary my-1">
+            <div class="card-body">
+                {{ message|trans }}
+            </div>
+        </div>
+    {% endfor %}
+
+
+    <div class="row">
+        <div class="col-12 col-md-10 col-lg-8">
+            <div class="card mt-2">
+                <div class="card-body">
+                    {{ form_start(changeEmailForm) }}
+                    {{ form_row(changeEmailForm.oldEmail) }}
+                    {{ form_row(changeEmailForm.email) }}
+
+                    <div class="text-center">
+                        <button class="btn btn-primary">{% trans %}button.save{% endtrans %}</button>
+                    </div>
+
+                    {{ form_end(changeEmailForm) }}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

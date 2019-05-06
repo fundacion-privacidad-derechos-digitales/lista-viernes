@@ -1,0 +1,92 @@
+{% extends 'profile/profileLayout.html.twig' %}
+
+{% block title %}Mis emails{% endblock %}
+
+{% block content %}
+
+    <h2 class="mt-5 ">
+        <a class="nav-back" href="{{ path('app_profile') }}"><i class="fas fa-arrow-left"></i></a> Mis emails
+    </h2>
+    <p>
+        Recuerda que sólo debes poner emails que te pertenezcan. Te envíaremos un correo electrónico para verificar que
+        eres el propietario.
+    </p>
+
+    {% for message in app.flashes('notice') %}
+        <div class="card bg-primary my-2">
+            <div class="card-body">{{ message|trans }}</div>
+        </div>
+    {% endfor %}
+
+    <div class="row">
+        <div class="col col-md-8 col-lg-6">
+            <div class="card  mt-2">
+                <ul class="list-group list-group-flush">
+                    {% for email in emails %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ email.email }}
+                            <div>
+                                {% if not email.validated %}
+                                    <span class="badge badge-pill badge-light">NO VALIDADO</span>
+                                {% else %}
+                                    <span class="badge badge-pill badge-info">VALIDADO</span>
+                                {% endif %}
+                                <a href role="button" title="Eliminar" data-toggle="modal" data-target="#modalDelete"
+                                   class="list-group-item-action text-dark ml-2 delete-action"
+                                   data-url="{{ path('app_profile_email_delete', { 'id': email.id  }) }}">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <div class="card-body">
+                    {{ form_start(emailForm) }}
+                    {{ form_row(emailForm.email) }}
+
+                    <div class="text-center">
+                        <button class="btn btn-primary">{% trans %}button.add{% endtrans %}</button>
+                    </div>
+                    {{ form_end(emailForm) }}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDeleteLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalDeleteLabel">Eliminar email</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ¿Está seguro de que desea elimnar este email?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                    {{ form_start(deleteForm) }}
+                    <button type="submit" class="btn btn-primary">Eliminar</button>
+                    {{ form_end(deleteForm) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function () {
+            $('.delete-action').on('click', function (e) {
+                $('#modalDelete form').attr('action', $(this).data('url'))
+            })
+        })
+    </script>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}En mantenimiento ...{% endblock %}
+
+{% block body %}
+    <div class="container">
+    <div class="row justify-content-md-center mt-5 mb-4">
+        <div class="col-10 col-md-4">
+            <a href="https://www.listaviernes.es">
+                <img src="{{ asset('img/lista-viernes-logotipo@2x.png') }}" class="img-fluid">
+            </a>
+        </div>
+    </div>
+        <div class="row justify-content-md-center mt-5 mb-4">
+            <div class="col-10 col-md-6">
+                <p class="text-center text-secondary mb-5">
+                    <i class="fas fa-tools fa-6x"></i>
+                </p>
+                <h3 class="text-center">Estamos relizando unos ajustes técnicos</h3>
+                <p class="text-center">En unos minutos la Lista Viernes estará disponible de nuevo para que puedeas seguir protegiendo
+                    tu privacidad.
+                </p>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

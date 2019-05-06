@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Lista Viernes | {% block title %}{% endblock %}</title>
+    <link rel="icon" href="img/favicon.png">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('common') }}
+    {% endblock %}
+</head>
+<body>
+{% block body %}{% endblock %}
+<footer class="bg-black text-white pt-3 text-center">
+    <div class="container">
+        <ul class="nav justify-content-center">
+            <li class="nav-item pt-2">
+                <a class="nav-link" href="https://www.listaviernes.es" target="_blank">
+                    <img src="{{ asset('img/lista-viernes-simbolo-salmon.svg') }}" height="30">
+                </a>
+            </li>
+            <li class="nav-item pt-2">
+                <a class="nav-link" href="https://www.listaviernes.es/aviso-legal/" target="_blank">Aviso legal</a>
+            </li>
+            <li class="nav-item pt-2">
+                <a class="nav-link" href="https://www.listaviernes.es/politica-de-privacidad/" target="_blank">Política de privacidad</a>
+            </li>
+            <li class="nav-item pt-2">
+                <a class="nav-link" href="https://www.listaviernes.es/politica-de-cookies/" target="_blank">Política de cookies</a>
+            </li>
+            <li class="nav-item pt-0">
+                <a class="nav-link" href="https://ssl.comodo.com" target="_blank">
+                    <img src="https://ssl.comodo.com/images/trusted-site-seal.png" alt="Comodo Trusted Site Seal" height="48" style="border: 0px;">
+                </a>
+            </li>
+        </ul>
+    </div>
+</footer>
+{% block javascripts %}
+    {{ encore_entry_script_tags('common') }}
+
+    {% if app.environment == 'prod' %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135879425-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-135879425-1', {'anonymize_ip': true});
+    </script>
+    {% endif %}
+{% endblock %}
+</body>
+</html>

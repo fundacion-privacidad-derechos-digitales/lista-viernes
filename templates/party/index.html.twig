@@ -1,0 +1,157 @@
+{% extends 'party/partyLayout.twig' %}
+
+    {% block title %}Comparación de datos{% endblock %}
+
+{% block content %}
+
+    {% for message in app.flashes('notice') %}
+        <div class="card bg-primary my-5">
+            <div class="card-body">{{ message|trans }}</div>
+        </div>
+    {% endfor %}
+
+    <div class="row mt-5">
+        <div class="col">
+            <h4 class="d-flex justify-content-between align-items-center">
+                Comparación de datos
+                <span>
+                    <a class="btn btn-outline-secondary" href data-toggle="modal" data-target="#modalDecode">
+                    Decodificar
+                </a>
+                <a href="{{ path('party_matchjob_new') }}" class="btn btn-secondary">Nueva comparación</a>
+                </span>
+            </h4>
+        </div>
+    </div>
+
+    <div class="row mt-3 mb-4">
+        <div class="col-12 col-md-10 col-lg-8">
+            <p>
+                Aquí puedes crear procesos de comparación de emails o teléfonos para comprobar los que estén
+                dados de alta en la Lista Viernes.
+            </p>
+           <p>
+                Cada nuevo proceso irá a una cola de trabajo, cuando el trabajo haya acabado se marcará como
+               <span class="badge badge-info">HECHO</span> en la columna "Estado", y el fichero de resultado estará
+               disponible para su descarga.
+           </p>
+            <p>
+                Por último sólo quedaría pulsar en el botón de decodificar para poder obtener el fichero de
+                resultados legible.
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <table class="table">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Fichero origen</th>
+                    <th scope="col">Fichero resultado</th>
+                    <th scope="col" class="text-right">Coincidencias</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for match in matchJobs %}
+                    <tr>
+                        <td>{{ match.createdAt|date("d/m/Y h:i:s") }}</td>
+                        <td>{{ match.type | trans  }}</td>
+                        <td>
+                            {% if match.status == constant('App\\Entity\\MatchJob::STATUS_DONE') %}
+                                <span class="badge badge-info">HECHO</span>
+                            {% else %}
+                                <span class="badge badge-primary">PENDIENTE</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            Fichero codificado
+                            <a data-toggle="tooltip" title="Descargar" href="{{ asset('uploads/matches/' ~ match.filename) }}" target="_blank">
+                                <i class="fas fa-file-download fa-lg"></i>
+                            </a>
+                        </td>
+                        <td>
+                            {% if match.resultFilename is not null %}
+                                Fichero codificado
+                                <a data-toggle="tooltip" title="Descargar" href="{{ asset('uploads/results/' ~ match.resultFilename) }}" target="_blank">
+                                    <i class="fas fa-file-download fa-lg"></i>
+                                </a>
+                            {% endif %}
+                        </td>
+                        <td class="text-right">
+                            {% if match.coincidences is not null %}
+                                {{ match.coincidences }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalDecode" tabindex="-1" role="dialog" aria-labelledby="modalDecodeLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalDecodeLabel">Decodificar fichero resultado</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="hash_file" class="required">Archivo original</label>
+                                <div class="custom-file" lang="es">
+                                    <input type="file" id="original_file" name="original_file" required="required"
+                                           class="custom-file-input">
+                                    <label for="hash_file" class="custom-file-label">Selecciona un archivo...</label>
+                                    <small class="form-text">Selecciona el fichero de origen de emails o teléfonos que introdujiste para
+                                        hacer la comparación.</small>
+                                    <div class="invalid-feedback">Selecciona un archivo .csv</div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="hash_file" class="required">Archivo resultado codificado</label>
+                                <div class="custom-file" lang="es">
+                                    <input type="file" id="hashed_file" name="hashed_file" required="required"
+                                           class="custom-file-input">
+                                    <label for="hash_file" class="custom-file-label">Selecciona un archivo...</label>
+                                    <small class="form-text">Selecciona el fichero codificado resultado de la comparación.</small>
+                                    <div class="invalid-feedback">Selecciona un archivo .csv</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <p class="lead">¿Por qué tengo que hacer esto?</p>
+                            <p>
+                                Porque esto es un <strong>sistema de doble ciego</strong> real. Nosotros nunca subimos
+                                a nuestro servidor tus datos legibles, siempre los subimos codificados y los comparamos
+                                codificados, así que el resultado de la comparación está cofidicado.
+                            </p>
+                            <p>
+                                Para devolverte un fichero con el resultado de la comparación legible, necesitamos hacer
+                                otra comparación con tu fichero original, y esta la hacemos en tu ordenador. Es por eso
+                                que necesitas pasar por esta ventana para obtener los resultados de tu comparación.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="compare_files" type="button" class="btn btn-secondary">Decodificar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

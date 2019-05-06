@@ -1,0 +1,89 @@
+security:
+    encoders:
+        App\Entity\User:
+            algorithm: argon2i
+        App\Entity\AdminUser:
+            algorithm: argon2i
+        App\Entity\PartyUser:
+            algorithm: argon2i
+
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: email
+        admin_user_provider:
+            entity:
+                class: App\Entity\AdminUser
+                property: email
+        party_user_provider:
+            entity:
+                class: App\Entity\PartyUser
+                property: email
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        admin:
+            anonymous: true
+            provider: admin_user_provider
+            pattern: ^/lv-puerta
+            guard:
+                authenticators:
+                    - App\Security\AdminLoginFormAuthenticator
+            logout:
+                path: admin_logout
+                target: admin_login
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 604800 # 1 week in seconds
+                path: /lv-puerta
+        party:
+            anonymous: true
+            provider: party_user_provider
+            pattern: ^/partido
+            guard:
+                authenticators:
+                    - App\Security\PartyLoginFormAuthenticator
+            logout:
+                path: party_logout
+                target: party_login
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 604800 # 1 week in seconds
+                path: /partido
+        main:
+            anonymous: true
+            provider: app_user_provider
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
+            logout:
+                path: app_logout
+                target: app_login
+            
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 604800 # 1 week in seconds
+                path: /
+
+            # activate different ways to authenticate
+
+            # http_basic: true
+            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+
+            # form_login: true
+            # https://symfony.com/doc/current/security/form_login_setup.html
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        - { path: ^/lv-puerta/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/partido/reestablecer-password, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/partido/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/partido/activar-cuenta, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/lv-puerta, roles: ROLE_ADMIN }
+        - { path: ^/partido, roles: ROLE_PARTY }
+        - { path: ^/perfil, roles: ROLE_USER }

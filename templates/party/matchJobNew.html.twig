@@ -1,0 +1,46 @@
+{% extends 'party/partyLayout.twig' %}
+
+{% block title %}Nueva comparación de datos{% endblock %}
+
+{% block content %}
+
+    {% for message in app.flashes('notice') %}
+        <div class="card bg-primary my-5">
+            <div class="card-body">{{ message|trans }}</div>
+        </div>
+    {% endfor %}
+
+    <div class="row mt-5 mb-4">
+        <div class="col">
+            <h4>
+                <a class="nav-back" href="{{ path('party_index') }}"><i class="fas fa-arrow-left"></i></a>
+                Comparación de datos
+            </h4>
+            <p>
+                Selecciona el archivo de emails o teléfonos a contrastar con nuestra base datos.<br>
+                Debe ser un acrivo CSV de una sola columna que contenga el listado de email o teléfonos, nunca ambos a la vez.
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-md-10 col-lg-8">
+            <div class="form-group">
+                <label for="hash_file" class="required">Archivo (CSV)</label>
+                <div class="custom-file" lang="es">
+                    <input type="file" class="custom-file-input" id="hash_file" name="hash_file" required="required">
+                    <label class="custom-file-label" for="hash_file">Selecciona un archivo...</label>
+                    <div class="invalid-feedback">Selecciona un archivo .csv con un máximo de 50.000 registros</div>
+                </div>
+            </div>
+
+
+            {{ form_start(form) }}
+            {{ form_row(form.fileData) }}
+            {{ form_row(form.type) }}
+            <button type="submit" class="btn btn-secondary mt-3">Subir</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+{% endblock %}

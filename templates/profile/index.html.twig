@@ -1,0 +1,96 @@
+{% extends 'profile/profileLayout.html.twig' %}
+
+{% block title %}Perfil{% endblock %}
+
+{% block content %}
+
+    {% for message in app.flashes('notice') %}
+        <div class="card bg-primary my-5">
+            <div class="card-body">{{ message|trans }}</div>
+        </div>
+    {% endfor %}
+
+    <div class="my-5">
+        <div class="row">
+            <div class="col">
+                <h4>
+                    {{ user.name }} {{ user.surname }}
+                    <a class="btn btn-link btn-sm" href="{{ path('app_profile_edit') }}">Editar perfil</a>
+                </h4>
+                <div>DNI / Pasaporte {{ user.idNumber }}</div>
+                <div>CP {{ user.postalCode }}</div>
+                <div>{{ user.email }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-md-10 col-lg-8">
+            <h4>
+                Tus elementos en la lista
+            </h4>
+            <p class="mb-5">
+                Al introducir y verificar tus teléfonos o emails en la Lista Viernes, los añadiremos a nuestra base
+                de datos que podrá ser consultada por todos los partidos políticos para excluirte de sus acciones
+                propagandísticas.
+            </p>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-5">
+                <div class="card-body text-center">
+                    <i class="far fa-envelope fa-3x text-secondary"></i>
+                    <h5 class="card-title mt-2">Mis emails</h5>
+                    <p class="card-text px-5">
+                        <small class="">Añade aquí tantos emails como quieras para evitar que te llegue publicidad
+                            política a tu buzón.
+                        </small>
+                    </p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for email in user.emails %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ email.email }}
+                            {% if not email.validated %}
+                                <span class="badge badge-pill badge-light">NO VALIDADO</span>
+                            {% else %}
+                                <span class="badge badge-pill badge-info">VALIDADO</span>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+                <div class="card-body text-center">
+                    {#<a href="{{ path('app_profile_emails') }}" class="btn btn-primary">Editar</a>#}
+                    <a href="{{ path('app_profile_emails') }}" class="btn btn-link btn-lg">Editar</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card mb-5">
+                <div class="card-body text-center">
+                    <i class="fas fa-mobile-alt fa-3x text-secondary"></i>
+                    <h5 class="card-title mt-2">Mis teléfonos</h5>
+                    <p class="card-text px-5">
+                        <small>¿Quieres evitar sms u otro tipo de mensajería? Añade aquí tus número de teléfono.</small>
+                    </p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for phone in user.phones %}
+                        <li class="list-group-item">{{ phone.phone }}</li>
+                    {% endfor %}
+                </ul>
+                <div class="card-body text-center">
+                    {#<a href="{{ path('app_profile_phones') }}" class="btn btn-primary">Editar</a>#}
+                    <a href="{{ path('app_profile_phones') }}" class="btn btn-link btn-lg">Editar</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+{% endblock %}

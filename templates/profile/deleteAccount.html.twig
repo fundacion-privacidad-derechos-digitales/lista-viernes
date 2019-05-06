@@ -1,0 +1,31 @@
+{% extends 'profile/profileLayout.html.twig' %}
+
+{% block title %}Borrar cuenta{% endblock %}
+
+{% block content %}
+
+    <h2 class="mt-5">
+        <a class="nav-back" href="{{ path('app_profile') }}"><i class="fas fa-arrow-left"></i></a> ¿Quieres borrar tu
+        cuenta?
+    </h2>
+
+    <p>
+        Si estás convencido de abandonar la Lista Viernes, adelante: tan sólo introduce tu contraseña y...
+        ¡Hola, propaganda electoral!
+    </p>
+
+    <div class="row">
+        <div class="col-12 col-md-10 col-lg-8">
+            <div class="card mt-2">
+                <div class="card-body">
+                    {{ form_start(deleteAccountForm) }}
+                    {{ form_row(deleteAccountForm.plainPassword) }}
+
+                    <button class="btn btn-danger">{% trans %}button.delete{% endtrans %}</button>
+                    {{ form_end(deleteAccountForm) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

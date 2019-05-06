@@ -1,0 +1,150 @@
+// customize some Bootstrap variables
+$primary: #FED583;
+$secondary: #F0805B;
+$info: #83E0E5;
+
+$light: #F2F2F2;
+$dark: #D5D5D5;
+
+$black: #000;
+
+//Components
+$border-color:                $dark;
+
+// Body
+//$body-bg: $light;
+$body-color: $black;
+
+// Links
+//
+// Style anchor elements.
+$link-color:                              $secondary;
+/*$link-decoration:                         underline;*/
+$link-hover-color:                        darken($link-color, 15%) !default;
+$link-hover-decoration:                   underline;
+// Darken percentage for links with `.text-*` class (e.g. `.text-success`)
+$emphasized-link-hover-darken-percentage: 15% !default;
+
+
+// Typography
+//
+// Font, line-height, and color for body text, headings, and more.
+@import url('https://fonts.googleapis.com/css?family=Muli:400,900');
+
+// stylelint-disable value-keyword-case
+$font-family-sans-serif:      'Muli', sans-serif;
+$font-family-base:            $font-family-sans-serif !default;
+// stylelint-enable value-keyword-case
+
+$font-size-base:              1rem !default; // Assumes the browser default, typically `16px`
+$font-size-lg:                $font-size-base * 1.25 !default;
+$font-size-sm:                $font-size-base * .875 !default;
+
+$font-weight-bold:            900 !default;
+
+$line-height-base:            1.5 !default;
+
+$h1-font-size:                $font-size-base * 2.5 !default;
+$h2-font-size:                $font-size-base * 2 !default;
+$h3-font-size:                $font-size-base * 1.75 !default;
+$h4-font-size:                $font-size-base * 1.5 !default;
+$h5-font-size:                $font-size-base * 1.25 !default;
+$h6-font-size:                $font-size-base !default;
+
+$headings-font-family:        null !default;
+$headings-font-weight:        $font-weight-bold;
+$headings-line-height:        1.2 !default;
+
+$small-font-size:             80% !default;
+
+$text-muted:                  $dark;
+
+$hr-border-color:             $dark;
+
+$badge-font-weight:           400;
+
+
+// Buttons + Forms
+//
+// Shared variables that are reassigned to `$input-` and `$btn-` specific variables.
+
+$input-btn-padding-y:         .5rem;
+$input-btn-padding-x:         1.5rem;
+$input-btn-padding-y-sm:      .35rem;
+$input-btn-padding-x-sm:      1rem;
+$input-btn-padding-y-lg:      .75rem;
+$input-btn-padding-x-lg:      1.75rem;
+
+// Allows for customizing button radius independently from global border radius
+$btn-border-radius:           30px;
+$btn-border-radius-lg:        30px;
+$btn-border-radius-sm:        30px;
+
+// Forms
+$input-color:                           $black;
+$input-border-color:                    $dark;
+$input-border-width:                    2px;
+// $input-border-width:                    $input-btn-border-width !default;
+$input-focus-border-color:              $primary;
+
+// tables
+$table-dark-bg:               $black;
+
+@import "~bootstrap/scss/bootstrap";
+
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  margin-bottom: 90px; /* Margin bottom by footer height */
+}
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 90px; /* Set the fixed height of the footer here */
+}
+
+@include media-breakpoint-down(sm) {
+  body {
+    margin-bottom: 130px;
+  }
+  footer {
+    height: 140px;
+  }
+}
+
+@include media-breakpoint-down(xs) {
+  body {
+    margin-bottom: 170px;
+  }
+  footer {
+    height: 190px;
+  }
+}
+
+.btn {
+  text-transform: uppercase;
+}
+
+.card-menu {
+  text-decoration: none;
+  .card-title {
+    margin-bottom: 0;
+  }
+}
+
+.nav-back {
+  color: $body-color;
+  transition: $transition-base;
+}
+
+.bg-black {
+  background-color: $black;
+}
+
+.custom-file-input ~ .custom-file-label::after {
+  content: "Elegir";
+}

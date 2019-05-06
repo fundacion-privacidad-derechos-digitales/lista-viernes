@@ -1,0 +1,78 @@
+{% extends 'admin/adminLayout.twig' %}
+
+{% block title %}Admin{% endblock %}
+
+{% block content %}
+
+    {% for message in app.flashes('notice') %}
+        <div class="card bg-primary my-5">
+            <div class="card-body">{{ message|trans }}</div>
+        </div>
+    {% endfor %}
+
+    <div class="row mt-5 mb-4">
+        <div class="col ">
+            <h4 class="d-flex justify-content-between align-items-center">
+                Usuarios de partidos políticos
+                <a href="{{ path('admin_party_new') }}" class="btn btn-primary">NUEVO</a>
+            </h4>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellidos</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Partido Político</th>
+                    <th class="text-right" scope="col">Comparaciones</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for party in parties %}
+                    <tr>
+                        <td>{{ party.name }}</td>
+                        <td>{{ party.surname }}</td>
+                        <td>
+                            {{ party.email }}
+                            {% if not party.emailValidated %}
+                                <span class="badge badge-pill badge-light">NO VALIDADO</span>
+                            {% else %}
+                                <span class="badge badge-pill badge-info">VALIDADO</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ party.politicalParty }}</td>
+                        <td class="text-right">{{ party.matchJobs.count }}</td>
+                        <td class="text-right">
+                            <a href="{{ path('admin_party_edit', {'id': party.id }) }}"
+                               role="button"
+                               title="Editar"
+                               class="">
+                                <i class="fas fa-pen"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function () {
+            $('.delete-action').on('click', function (e) {
+                $('#modalDelete form').attr('action', $(this).data('url'))
+            })
+        })
+    </script>
+{% endblock %}

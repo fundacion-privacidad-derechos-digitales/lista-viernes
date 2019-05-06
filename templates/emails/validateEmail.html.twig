@@ -1,0 +1,10 @@
+<img src="{{ absolute_url(asset('img/lista-viernes-logotipo@2x.png')) }}" height="40">
+<p>
+    ¡Hola! Has añadido un nuevo email en tu ficha de la Lista Viernes. <strong>Pincha en este enlace para confirmarlo:</strong>
+    <a href="{{ absolute_url(path('app_validate_email', {'token': email.validationToken })) }}">{{ absolute_url(path('app_validate_email', {'token': email.validationToken })) }}</a>.
+</p>
+
+<p>
+    Si no sabes qué es esto o tú no has introducido nada olvídalo. O mejor, descubre todo lo que la
+    <a href="https://www.listaviernes.es">lista viernes</a> puede hacer por ti y por tu privacidad.
+</p>

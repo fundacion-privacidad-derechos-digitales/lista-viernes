@@ -1,0 +1,65 @@
+label:
+  name: Nombre
+  surname: Apellidos
+  idNumber: DNI / Pasaporte
+  postalCode: Código postal
+  email: Email
+  password: Contraseña
+  repeatPassword: Repite contraseña
+  oldEmail: Email antiguo
+  newEmail: Nuevo email
+  repeatEmail: Repite el email
+  oldPassword: Antigua contraseña
+  newPassword: Nueva contraseña
+  phone: Teléfono
+  politicalParty: Partido político
+  type: Tipo
+
+button:
+  add: Añadir
+  save: Guardar
+  signUp: Apúntame
+  signIn: Entrar
+  signOut: Cerrar Sesión
+  resetPassword: Envíame una nueva contraseña
+  delete: Borrar cuenta
+
+flash:
+  profileUpdatedSuccessfully: Perfil actualizado correctamente.
+  emailUpdatedSuccessfullyValidateIt: Email actualizado correctamente. Te hemos mandado un email de verificación. Por favor, comprueba tu bandeja de SPAM si ves que dicho email tarda en llegar.
+  emailUpdatedSuccessfully: Email actualizado correctamente.
+  passwordUpdatedSuccessfully: Contraseña actualizada correctamente.
+  verificationEmailSent: Te hemos enviado un email de verificación. Por favor, comprueba tu bandeja de SPAM si ves que dicho email tarda en llegar.
+  phoneAddedSuccessfully: Hemos añadido tu telefono a la lista.
+  emailValidationFailed: Lo sentimos pero no hemos podido validar tu email.
+  emailValidationFailedIdNumber: Lo sentimos pero ya hay una cuenta validada con este DNI o Passaporte
+  emailValidatedSuccessfully: Email validado correctamente.
+  accountActivated: Email validado correctamente, ¡ya puedes entrar!
+  userDoesNotExist: Este usuario no existe.
+  resetPasswordEmailSent: Te hemos envíado un email con la nueva contraseña. Por favor, comprueba tu bandeja de SPAM si ves que dicho email tarda en llegar.
+  deleteEmail: Email eliminado correctamente.
+  deletePhone: Teléfono eliminado correctamente.
+  accountDeletedSuccessfully: Tu cuenta de Lista Viernes ha sido eliminada.
+  emailAlreadyValidated: Este email ya ha sido validado.
+  partyUserCreatedSuccessfully: Usuario de partido político creado correctamente. El propio usuario debe validar su email para poder entrar el la plataforma.
+  partyUserSavedSuccessfully: Usuario de partido político guardado correctamente.
+
+title:
+  singUp: Registro
+  signIn: Acceso
+  resetPassword: Reestablecer contraseña
+
+links:
+  here: aquí
+
+text:
+  resetPassword: ¿Has olvidado tu contraseña? Puedes cambiarla
+  youHaveAlreadyAccount: ¿Ya tienes una cuenta? Entra desde
+  youHaveNotAccount: ¿Aún no tienes cuenta? Apúntate
+
+Email could not be found.: Email o contraseña erróneo
+Invalid credentials.: Email o contraseña erróneo
+Invalid CSRF token.: Token inválido. Vuelve a rellenar el formulario, por favor
+
+EMAIL: Email
+PHONE: Teléfono

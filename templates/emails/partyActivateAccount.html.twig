@@ -1,0 +1,10 @@
+<img src="{{ absolute_url(asset('img/lista-viernes-logotipo@2x.png')) }}" height="40">
+<p>
+    La administración de Lista Viernes te ha dado de alta como usuario del partido político {{ user.politicalParty }}.
+    Ahora solo necesitamos que nos confirmes que eres tú para que todo quede claro.
+</p>
+
+<p>
+    Pincha en <a href="{{ absolute_url(path('party_activate_account', {'token': user.emailValidationToken })) }}">este enlace</a>
+    y podrás comparar tu base de datos con la de Lista Viernes.
+</p>

@@ -1,0 +1,6 @@
+<img src="{{ absolute_url(asset('img/lista-viernes-logotipo@2x.png')) }}" height="40">
+<p>
+    Has introducido {{ user.email }} como email de usuario en tu cuenta de la Lista Viernes. 
+    Sólo necesitamos que confirmes que eres tú pinchando en el siguiente enlace:
+    <a href="{{ absolute_url(path('app_activate_account', {'token': user.emailValidationToken })) }}">{{ absolute_url(path('app_activate_account', {'token': user.emailValidationToken })) }}</a>.
+</p>

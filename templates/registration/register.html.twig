@@ -1,0 +1,127 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}title.singUp{% endtrans %}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row justify-content-md-center mt-5 mb-4">
+            <div class="col-10 col-md-4">
+                <a href="https://www.listaviernes.es">
+                    <img src="{{ asset('img/lista-viernes-logotipo@2x.png') }}" class="img-fluid">
+                </a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <p class="lead px-2 px-md-5 mt-4">
+                    La lista viernes es nuestra, de todos.
+                    Por eso, solo podrá funcionar si logramos dos objetivos:
+                </p>
+                <div class="px-2 px-md-5 mt-3">
+                    <div class="text-center">
+                        <img class="" src="{{ asset('img/lista-viernes-comunidad.svg') }}" width="200">
+                    </div>
+                    <p class="">
+                        <strong>1.</strong> Que nos apuntemos mucha gente. Solo así los partidos dejarán de tener excusa,
+                        tendrán que depurar su base de datos. Hasta entonces seguirán enviándote propaganda.
+                    </p>
+                </div>
+
+                <div class="px-2 px-md-5 mt-5">
+                    <div class="text-center">
+                        <img class="img-fluid mx-auto" src="{{ asset('img/lista-viernes-colabora.svg') }}" width="200">
+                    </div>
+                    <p class="">
+                        <strong>2.</strong> Conseguir la financiación necesaria para mantener el servicio. Apuntarse en la lista es gratis,
+                        pero necesitamos tu colaboración. Puedes hacer tu aportación en
+                        <a href="https://www.goteo.org/project/lista-viernes" target="_blank">Goteo.org</a>
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row justify-content-md-center">
+                    <div class="col">
+                        <div class="card mt-4">
+                            <div class="card-body">
+                                <h2 class="card-title mb-4">{% trans %}title.singUp{% endtrans %}</h2>
+                                {{ form_start(registrationForm) }}
+                                <div class="form-row">
+                                    <div class="col-md-5">
+                                        {{ form_row(registrationForm.name) }}
+                                    </div>
+                                    <div class="col-md-7">
+                                        {{ form_row(registrationForm.surname) }}
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-8">
+                                        {{ form_row(registrationForm.idNumber) }}
+                                    </div>
+                                    <div class="col-md-4">
+                                        {{ form_row(registrationForm.postalCode) }}
+                                    </div>
+                                </div>
+                                {{ form_row(registrationForm.email) }}
+                                {{ form_row(registrationForm.plainPassword) }}
+
+                                {% do registrationForm.termsAccepted.setRendered %}
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input type="checkbox" id="registration_form_termsAccepted"
+                                               name="registration_form[termsAccepted]" required="required"
+                                               class="form-check-input" value="1">
+                                        <label class="form-check-label required" for="registration_form_termsAccepted">
+                                            Acepto la <a href="https://www.listaviernes.es/politica-de-privacidad"
+                                                         target="_blank">política de privacidad</a>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                {{ form_errors(registrationForm.recaptchaToken) }}
+                                {{ form_widget(registrationForm.recaptchaToken) }}
+
+                                <div class="g-recaptcha mb-4" data-sitekey="{{ recaptcha_site_key }}" data-callback="onCaptchaSuccess"></div>
+
+                                <small>
+                                    La FUNDACIÓN PARA LA DEFENSA DE LA PRIVACIDAD Y LOS DERECHOS DIGITALES, tratará tus datos
+                                    para canalizar tus derechos de oposición a (i) la recepción de propaganda electoral y al
+                                    (ii) tratamiento de tus datos ideológicos por los partidos políticos.
+                                    El tratamiento se basa en tu consentimiento prestado al inscribirte en la Lista Viernes.
+                                    Destinatarios: Los partidos políticos pueden utilizar la Lista, sin acceder a los datos
+                                    contenidos en ella, mediante un procedimiento totalmente automatizado. Nadie más, accederá a
+                                    tus datos, salvo obligación legal.
+                                    Puedes revocar tu consentimiento y ejercer tus derechos de acceso, supresión, y otros
+                                    derechos. Más info en nuestra <a href="https://www.listaviernes.es/politica-de-privacidad">Política
+                                        de Privacidad</a>.
+                                </small>
+
+                                <div class="text-center mt-4">
+                                    <button class="btn btn-primary" type="submit"
+                                            id="submitBtn">{% trans %}button.signUp{% endtrans %}</button>
+                                </div>
+
+                                {{ form_end(registrationForm) }}
+                            </div>
+                        </div>
+                        <p class="mt-3 mb-5">{% trans %}text.youHaveAlreadyAccount{% endtrans %}
+                            <a href="{{ path('app_login') }}">{% trans %}links.here{% endtrans %}</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script>
+        function onCaptchaSuccess(token) {
+            document.getElementById("registration_form_recaptchaToken").value = token;
+        }
+    </script>
+{% endblock %}
